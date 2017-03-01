@@ -1,0 +1,17 @@
+.DS_Store
+wp-cli.local.yml
+node_modules/
+vendor/
+deps/
+*.zip
+*.tar.gz
+
+features/bootstrap/FeatureContext.php
+features/bootstrap/Process.php
+features/bootstrap/ProcessRun.php
+features/bootstrap/support.php
+features/bootstrap/utils.php
+features/extra/no-mail.php
+features/steps/given.php
+features/steps/then.php
+features/steps/when.php

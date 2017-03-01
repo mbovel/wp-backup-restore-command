@@ -1,0 +1,17 @@
+{
+  "name": "mbovel/wp-restore-backup-command",
+  "description": "",
+  "type": "wp-cli-package",
+  "homepage": "https://github.com/mbovel/wp-restore-backup-command",
+  "license": "MIT",
+  "authors": [],
+  "autoload": {
+    "files": [
+      "command.php"
+    ]
+  },
+  "require-dev": {
+    "wp-cli/wp-cli": ">=1.1.0",
+    "behat/behat": "~2.5.0"
+  }
+}
