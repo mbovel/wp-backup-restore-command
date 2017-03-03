@@ -68,3 +68,31 @@ Feature: Restore plugins
     """
     Success: Installed 1 of 1 plugins.
     """
+
+  Scenario: Restore a specific version of a plugin from a foreign source which is not not active
+    Given a WP install
+    And the following setup:
+    """
+    wp plugin uninstall hello
+    wp plugin uninstall akismet
+    """
+    And a plugins.json file:
+    """
+    {
+        "github-updater\/github-updater.php": {
+            "name": "GitHub Updater",
+            "path": "github-updater\/github-updater.php",
+            "version": "6.2.2",
+            "active": false,
+            "source": null,
+            "handle": null
+        }
+    }
+    """
+
+    When I run `wp restore plugins < plugins.json`
+
+    Then STDERR should be:
+    """
+    Warning: can not automatically restore plugin GitHub Updater.
+    """

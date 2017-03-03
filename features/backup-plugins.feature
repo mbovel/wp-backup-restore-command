@@ -72,3 +72,32 @@ Feature: Backup plugins
         }
     }
     """
+
+  Scenario: Backup a specific version of a plugin from a foreign source which is not not active
+    Given a WP install
+    And the following setup:
+    """
+    wp plugin uninstall hello
+    wp plugin uninstall akismet
+    wp plugin install https://github.com/afragen/github-updater/archive/6.2.2.zip
+    """
+
+    When I run `wp backup plugins`
+
+    Then STDOUT should be:
+    """
+    {
+        "github-updater\/github-updater.php": {
+            "name": "GitHub Updater",
+            "path": "github-updater\/github-updater.php",
+            "version": "6.2.2",
+            "active": false,
+            "source": null,
+            "handle": null
+        }
+    }
+    """
+    And STDERR should be:
+    """
+    Warning: `wp restore` will not be able to automatically restore plugin GitHub Updater.
+    """
