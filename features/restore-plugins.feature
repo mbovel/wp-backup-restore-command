@@ -1,6 +1,6 @@
-Feature: Test that WP-CLI loads.
+Feature: Restore plugins
 
-  Scenario: One outdated active plugin
+  Scenario: Restore a specific version of a plugin from wordpress.org which must be active
     Given a WP install
     And the following setup:
     """
@@ -33,7 +33,7 @@ Feature: Test that WP-CLI loads.
     Success: Installed 1 of 1 plugins.
     """
 
-  Scenario: One outdated active plugin
+  Scenario: Restore a specific version of a plugin from wordpress.org which must not be active
     Given a WP install
     And the following setup:
     """

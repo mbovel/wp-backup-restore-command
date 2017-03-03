@@ -1,6 +1,6 @@
-Feature: Test that WP-CLI loads.
+Feature: Backup plugins
 
-  Scenario: One outdated active plugin
+  Scenario: Backup a specific version of a plugin from wordpress.org which is active
     Given a WP install
     And the following setup:
     """
@@ -24,7 +24,7 @@ Feature: Test that WP-CLI loads.
     }
     """
 
-  Scenario: One outdated inactive plugin
+  Scenario: Backup a specific version of a plugin from wordpress.org which is not active
     Given a WP install
     And the following setup:
     """
@@ -48,7 +48,7 @@ Feature: Test that WP-CLI loads.
     }
     """
 
-  Scenario: One up-to-date active plugin
+  Scenario: Backup the latest version of a plugin from wordpress.org which is not active
     Given a WP install
     And the following setup:
     """
