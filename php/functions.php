@@ -92,14 +92,14 @@ function load_wp_urls_constants( $assoc_args ) {
 function get_db_replacements() {
 	return [
 		// Dump HOME_URL for homeurl option even if HOME_URL === SITE_URL
-		"'homeurl','HOME_URL" => "'homeurl','" . home_url(),
+		"'home','HOME_URL" => "'home','" . home_url(),
 
 		// Replace urls with named constants
-		"UPLOADS_URL"         => wp_upload_dir()['baseurl'],
-		"PLUGINS_URL"         => plugins_url(),
-		"CONTENT_URL"         => content_url(),
-		"SITE_URL"            => site_url(),
-		"HOME_URL"            => home_url(),
+		"UPLOADS_URL"      => wp_upload_dir()['baseurl'],
+		"PLUGINS_URL"      => plugins_url(),
+		"CONTENT_URL"      => content_url(),
+		"SITE_URL"         => site_url(),
+		"HOME_URL"         => home_url(),
 
 		// Add line breaks for a more git-friendly dump.
 		// Should maybe use --skip-extended-insert instead, which would
