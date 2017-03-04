@@ -4,6 +4,8 @@ use Behat\Gherkin\Node\PyStringNode;
 
 $steps->Given( '/^the following setup:$/',
 	function( FeatureContext $world, PyStringNode $script ) {
+		$world->variables["SUITE_CACHE_DIR"] = get_wp_cli_test_cache_dir();
+
 		foreach ( $script->getLines() as $line ) {
 			$cmd    = escapeshellarg( $line );
 			$result = $world->proc( "bash -c $cmd" )->run_check();
