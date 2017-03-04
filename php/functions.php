@@ -105,7 +105,8 @@ function get_db_replacements() {
 		// Should maybe use --skip-extended-insert instead, which would
 		// need a change in `wp export`.
 		// See http://stackoverflow.com/q/15750535
-		"),\n("               => "),("
+		"VALUES\n("        => "VALUES (",
+		"),\n("            => "),("
 	];
 }
 
