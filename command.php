@@ -6,7 +6,6 @@ if ( ! class_exists( 'WP_CLI' ) ) {
 
 require_once __DIR__ . "/php/functions.php";
 require_once __DIR__ . "/php/class-Plugin.php";
-require_once __DIR__ . "/php/class-Command.php";
 require_once __DIR__ . "/php/class-Backup_Command.php";
 require_once __DIR__ . "/php/class-Restore_Command.php";
 

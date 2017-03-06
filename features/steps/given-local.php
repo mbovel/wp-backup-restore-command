@@ -4,8 +4,6 @@ use Behat\Gherkin\Node\PyStringNode;
 
 $steps->Given( '/^the following setup:$/',
 	function( FeatureContext $world, PyStringNode $script ) {
-		$world->variables["SUITE_CACHE_DIR"] = get_wp_cli_test_cache_dir();
-
 		foreach ( $script->getLines() as $line ) {
 			$cmd    = escapeshellarg( $line );
 			$result = $world->proc( "bash -c $cmd" )->run_check();
@@ -22,6 +20,32 @@ $steps->Given( '/^the file (.+)$/',
 	}
 );
 
-function get_wp_cli_test_cache_dir() {
-	return sys_get_temp_dir() . '/wp-cli-test/cache-dir';
+$steps->Given( '/^a WP install at version ([0-9.]+)$/',
+	function( FeatureContext $world, $version ) {
+		install_wp( $world, $version );
+	}
+);
+
+$steps->Given( "/^a WP install at version ([0-9.]+) in '([^\s]+)'$/",
+	function( FeatureContext $world, $version, $path ) {
+		install_wp( $world, $version, $path );
+	}
+);
+
+function install_wp( FeatureContext $world, $version, $path = '' ) {
+	$world->create_db();
+	$world->create_run_dir();
+	$world->proc( "wp core download", compact( 'version', 'path' ) )->run_check();
+
+	$world->create_config( $path );
+
+	$install_args = [
+		'url'            => 'http://example.com',
+		'title'          => 'WP CLI Site',
+		'admin_user'     => 'admin',
+		'admin_email'    => 'admin@example.com',
+		'admin_password' => 'password1'
+	];
+
+	$world->proc( 'wp core install', $install_args, $path )->run_check();
 }

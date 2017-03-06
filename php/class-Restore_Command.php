@@ -5,7 +5,7 @@ namespace WP_CLI\BR;
 use WP_CLI,
 	WP_CLI\Utils;
 
-class Restore_Command extends Command {
+class Restore_Command extends \WP_CLI_Command {
 	/**
 	 * Restore plugins previously backed up with `wp backup plugins`.
 	 *
@@ -67,6 +67,23 @@ class Restore_Command extends Command {
 		file_put_contents( $tmp_file, $dump );
 
 		$cmd = Utils\esc_cmd( "db import %s", $tmp_file );
+		WP_CLI::runcommand( $cmd );
+	}
+
+	/**
+	 * Restore WordPress core previously backed up with `wp backup core`.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     $ wp restore core < core.json
+	 *
+	 * @when before_wp_load
+	 */
+	function core() {
+		$core = json_decode( file_get_contents( "php://stdin" ) );
+
+		$cmd = Utils\esc_cmd( "core download --version=%s --path=%s --force", $core->version, $core->path );
+
 		WP_CLI::runcommand( $cmd );
 	}
 }

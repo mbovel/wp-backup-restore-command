@@ -5,7 +5,13 @@ Feature: Restore database
     And the file simple_wp.sql
 
     When I run `wp restore db --url=http://example.com/wp < simple_wp.sql`
-    And I run `wp option list --fields=option_name,option_value`
+
+    Then STDOUT should contain:
+    """
+    Success: Imported from
+    """
+
+    When I run `wp option list --fields=option_name,option_value`
 
     Then STDOUT should be a table containing rows:
       | option_name | option_value          |
@@ -18,7 +24,13 @@ Feature: Restore database
     And the file simple_wp.sql
 
     When I run `wp restore db --homeurl=http://example.com/home --siteurl=http://example.com/wp < simple_wp.sql`
-    And I run `wp option list --fields=option_name,option_value`
+
+    Then STDOUT should contain:
+    """
+    Success: Imported from
+    """
+
+    When I run `wp option list --fields=option_name,option_value`
 
     Then STDOUT should be a table containing rows:
       | option_name | option_value            |

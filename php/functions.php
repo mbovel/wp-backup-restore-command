@@ -84,6 +84,42 @@ function load_wp_urls_constants( $assoc_args ) {
 	wp_plugin_directory_constants();
 }
 
+function load_plugins_api() {
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
+	require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+}
+
+function get_locales_list() {
+	$translations = wp_get_installed_translations( "core" );
+
+	if ( ! empty( $translations["default"] ) ) {
+		return array_keys( $translations["default"] );
+	}
+
+	return [];
+}
+
+
+/**
+ * @param $from
+ * @param $to
+ * @param string $ps
+ *
+ * @return string
+ * @see http://php.net/manual/en/function.realpath.php#105876
+ */
+function relative_path( $from, $to, $ps = DIRECTORY_SEPARATOR ) {
+	$arFrom = explode( $ps, rtrim( $from, $ps ) );
+	$arTo   = explode( $ps, rtrim( $to, $ps ) );
+
+	while ( count( $arFrom ) && count( $arTo ) && ( $arFrom[0] == $arTo[0] ) ) {
+		array_shift( $arFrom );
+		array_shift( $arTo );
+	}
+
+	return str_pad( "", count( $arFrom ) * 3, '..' . $ps ) . implode( $ps, $arTo );
+}
+
 /***
  * Array of expression to replace in db dump.
  *
