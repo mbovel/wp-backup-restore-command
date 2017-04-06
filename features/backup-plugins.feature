@@ -61,7 +61,7 @@ Feature: Backup plugins
     """
     {
         "akismet\/akismet.php": {
-            "name": "Akismet",
+            "name": "Akismet Anti-Spam",
             "path": "akismet\/akismet.php",
     """
     And STDOUT should contain:
