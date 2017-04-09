@@ -18,6 +18,12 @@ class Restore_Command extends \WP_CLI_Command {
 	function plugins() {
 		$plugins_to_impose = json_decode( file_get_contents( "php://stdin" ) );
 
+		foreach ( $plugins_to_impose as &$plugin ) {
+			$plugin = Plugin::fromJSON( $plugin );
+		}
+
+		/** @var Plugin[] $plugins_to_impose */
+
 		foreach ( get_plugins() as $path => $info ) {
 			$plugin = Plugin::fromWP( $path, $info );
 
@@ -26,8 +32,7 @@ class Restore_Command extends \WP_CLI_Command {
 			}
 		}
 
-		foreach ( $plugins_to_impose as $info ) {
-			$plugin = Plugin::fromJSON( $info );
+		foreach ( $plugins_to_impose as $plugin ) {
 			$plugin->install();
 		}
 	}
