@@ -16,7 +16,7 @@ class Restore_Command extends \WP_CLI_Command {
 	 * @when after_wp_load
 	 */
 	function plugins() {
-		$plugins_to_impose = json_decode( file_get_contents( "php://stdin" ) );
+		$plugins_to_impose = (array)json_decode( file_get_contents( "php://stdin" ) );
 
 		foreach ( $plugins_to_impose as &$plugin ) {
 			$plugin = Plugin::fromJSON( $plugin );
